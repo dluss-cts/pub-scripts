@@ -17,6 +17,28 @@ sudo apt-get update
 sudo apt-get install -y kubectl 
 
 
+## install az cli 
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+## Login to az and cluster:
+
+az login
+
+az account set --subscription $SUBSCRIPTION_ID
+
+az aks get-credentials --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --overwrite-existing --admin --format azure
+
+az aks install-cli
+
+az login
+
+export KUBECONFIG=~/.kube/config
+
+kubelogin convert-kubeconfig -l azurecli
+
+kubectl get nodes
+
+
 # # install turbine
 
 # curl -Lo kots.tar.gz https://get.swimlane.io/existing-cluster/install/linux
@@ -27,6 +49,4 @@ sudo apt-get install -y kubectl
 
 # kubectl kots install turbine --namespace your-namespace  --kubeconfig /path/to/kube/config
 
-# install azcli
-
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+# kubectl kots admin-console --namespace turbine
