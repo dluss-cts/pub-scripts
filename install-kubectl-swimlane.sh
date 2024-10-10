@@ -1,6 +1,18 @@
+#!/bin/bash
+
+# set inputs
+export SUBSCRIPTION_ID=$1
+export RESOURCE_GROUP_NAME=$2
+export CLUSTER_NAME=$3
+
+subscription_id=$1
+resource_group_name=$2
+cluster_name=$3
+
 # install kubectl
 
 sudo apt-get update
+
 # apt-transport-https may be a dummy package; if so, you can skip that package
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
 
@@ -22,11 +34,11 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ## Login to az and cluster:
 
-az login
+az login --identity 
 
-az account set --subscription $SUBSCRIPTION_ID
+az account set --subscription $subscription_id
 
-az aks get-credentials --resource-group $RESOURCE_GROUP_NAME --name $CLUSTER_NAME --overwrite-existing --admin --format azure
+az aks get-credentials --resource-group $resource_group_name --name $cluster_name --overwrite-existing --admin --format azure
 
 az aks install-cli
 
