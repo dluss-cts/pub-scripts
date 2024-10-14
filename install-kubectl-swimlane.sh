@@ -4,10 +4,12 @@
 export SUBSCRIPTION_ID=$0
 export RESOURCE_GROUP_NAME=$1
 export CLUSTER_NAME=$2
+export UAMI_ID=$3
 
 subscription_id=$0
 resource_group_name=$1
 cluster_name=$2
+uami_id=$3
 
 # install kubectl
 
@@ -33,22 +35,22 @@ sudo apt-get install -y kubectl
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 ## Login to az and cluster:
+az cloud set --name AzureUSGovernment
 
-az login --identity 
+az login --identity --username $uami_id
 
 az account set --subscription $subscription_id
 
-az aks get-credentials --resource-group $resource_group_name --name $cluster_name --overwrite-existing --admin --format azure
+az aks get-credentials --resource-group $resource_group_name --name $cluster_name --overwrite-existing --format azure
 
-az aks install-cli
+sudo az aks install-cli
 
-az login
+export KUBECONFIG=/root/.kube/config
+sudo export KUBECONFIG=/root/.kube/config
 
-export KUBECONFIG=~/.kube/config
+sudo kubelogin convert-kubeconfig -l azurecli
 
-kubelogin convert-kubeconfig -l azurecli
-
-kubectl get nodes
+sudo kubectl get nodes
 
 
 # # install turbine
