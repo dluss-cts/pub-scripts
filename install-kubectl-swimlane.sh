@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # set inputs
-export SUBSCRIPTION_ID=$0
-export RESOURCE_GROUP_NAME=$1
-export CLUSTER_NAME=$2
-export UAMI_ID=$3
+export SUBSCRIPTION_ID=$1
+export RESOURCE_GROUP_NAME=$2
+export CLUSTER_NAME=$3
+export UAMI_ID=$4
 
-subscription_id=$0
-resource_group_name=$1
-cluster_name=$2
-uami_id=$3
+subscription_id=$1
+resource_group_name=$2
+cluster_name=$3
+uami_id=$4
 
 # install kubectl
 
